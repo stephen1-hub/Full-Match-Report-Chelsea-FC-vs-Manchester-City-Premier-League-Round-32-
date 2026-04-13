@@ -9,6 +9,10 @@ from matplotlib.lines import Line2D
 # LOAD DATA
 # -----------------------------
 df = pd.read_csv("shots6.csv")
+team_passes = {
+    "Chelsea": {"passes": 386, "accuracy": 83.4},
+    "Manchester City": {"passes": 678, "accuracy": 91.4}
+}
 
 # Create team label
 df['team'] = df['team_home'].apply(lambda x: 'Chelsea' if x else 'Manchester City')
@@ -51,17 +55,28 @@ if shot_filter != "All":
 # 1. KEY METRICS
 # -----------------------------
 st.subheader("📊 Key Metrics")
-col1, col2, col3, col4 = st.columns(4)
+col1, col2, col3, col4, col5, col6 = st.columns(6)
 
 total_shots = len(filtered_df)
 goals = len(filtered_df[filtered_df['shot_type'] == 'goal'])
 on_target = len(filtered_df[filtered_df['shot_type'].isin(['goal', 'save'])])
 total_xg = filtered_df['xg'].sum()
 
+# Default values
+passes = "-"
+pass_acc = "-"
+
+# Show passes only if a single team is selected
+if team_filter != "All":
+    passes = team_passes[team_filter]["passes"]
+    pass_acc = team_passes[team_filter]["accuracy"]
+
 col1.metric("Total Shots", total_shots)
 col2.metric("Goals", goals)
 col3.metric("On Target", on_target)
 col4.metric("xG", round(total_xg, 2))
+col5.metric("Passes", passes)
+col6.metric("Pass Accuracy (%)", pass_acc)
 
 # -----------------------------
 # 2. DATA TABLE
