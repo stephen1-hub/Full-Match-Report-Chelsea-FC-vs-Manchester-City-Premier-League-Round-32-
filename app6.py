@@ -51,14 +51,17 @@ if shot_filter != "All":
 # 1. KEY METRICS
 # -----------------------------
 st.subheader("📊 Key Metrics")
-col1, col2, col3 = st.columns(3)
+col1, col2, col3, col4 = st.columns(4)
+
 total_shots = len(filtered_df)
 goals = len(filtered_df[filtered_df['shot_type'] == 'goal'])
 on_target = len(filtered_df[filtered_df['shot_type'].isin(['goal', 'save'])])
+total_xg = filtered_df['xg'].sum()
 
 col1.metric("Total Shots", total_shots)
 col2.metric("Goals", goals)
 col3.metric("On Target", on_target)
+col4.metric("xG", round(total_xg, 2))
 
 # -----------------------------
 # 2. DATA TABLE
