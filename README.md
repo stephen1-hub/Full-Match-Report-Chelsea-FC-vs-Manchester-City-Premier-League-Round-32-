@@ -4,6 +4,8 @@
 
 Analyze Chelsea FC and Manchester City attacking patterns, chance quality, and execution to identify tactical strengths, weaknesses, and actionable recommendations.
 
+Live Demo: https://owbfbm6zrxdvhpq35s8cwu.streamlit.app/
+
 # Data Used
 Shot data (location, xG, outcome, body part, situation)
 Passing data (total passes, accuracy, player distribution)
